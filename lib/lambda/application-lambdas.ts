@@ -24,6 +24,21 @@ export class ApplicationLambdas extends Construct {
    */
   public readonly createEntryLambda: NodejsFunction;
 
+  /**
+   * Lambda function to read entry from ddb.
+   */
+  public readonly readEntryLambda: NodejsFunction;
+
+  /**
+   * Lambda function to update an entry from ddb.
+   */
+  public readonly updateEntryLambda: NodejsFunction;
+
+  /**
+   * Lambda function to delete entry from ddb.
+   */
+  public readonly deleteEntryLambda: NodejsFunction;
+
   public constructor(
     scope: Construct,
     id: string,
@@ -31,25 +46,59 @@ export class ApplicationLambdas extends Construct {
   ) {
     super(scope, id);
 
-    // setup CreateEntry Lambda Function
-    this.createEntryLambda = new NodejsFunction(this, "CreateEntryLambda", {
-      entry: join(__dirname, "assets", "create-entry.ts"),
+    // setup CRUD Lambda functions.
+    this.createEntryLambda = this.setupApplicationLambda(
+      "CreateEntryLambda",
+      "create-entry.ts",
+      props
+    );
+    this.readEntryLambda = this.setupApplicationLambda(
+      "ReadEntryLambda",
+      "read-entry.ts",
+      props
+    );
+    this.updateEntryLambda = this.setupApplicationLambda(
+      "UpdateEntryLambda",
+      "update-entry.ts",
+      props
+    );
+    this.deleteEntryLambda = this.setupApplicationLambda(
+      "DeleteEntryLambda",
+      "delete-entry.ts",
+      props
+    );
+  }
+
+  /**
+   * Sets up application lambda based on the provided params with default certain default settings.
+   * @param functionId the logical function id
+   * @param pathToEntryFile Path to the entry file
+   * @param props props for this construct.
+   * @return a default inited {@link NodejsFunction}.
+   */
+  private setupApplicationLambda(
+    functionId: string,
+    pathToEntryFile: string,
+    props: ApplicationLambdaFunctionProps
+  ): NodejsFunction {
+    const lambdaFunc: NodejsFunction = new NodejsFunction(this, functionId, {
+      entry: join(__dirname, "assets", pathToEntryFile),
       ...this.getDefaultNodeJsLambdaFuncProps(props),
     });
-
-    // setup basic lambda execution role policy.
-    this.createEntryLambda.role?.addManagedPolicy(
+    lambdaFunc.role?.addManagedPolicy(
       ManagedPolicy.fromAwsManagedPolicyName(
         "service-role/AWSLambdaBasicExecutionRole"
       )
     );
-
     // give lambda permissions to read/write from the message store ddb.
-    props.messageEntryTable.grantReadWriteData(this.createEntryLambda);
+    props.messageEntryTable.grantReadWriteData(lambdaFunc);
+    return lambdaFunc;
   }
 
   /**
    * Obtain default NodeJs lambda function props.
+   * @param props props for this construct.
+   * @return NodejsFunctionProps an initialized {@link NodejsFunctionProps} with certain defaults.
    */
   private getDefaultNodeJsLambdaFuncProps(
     props: ApplicationLambdaFunctionProps

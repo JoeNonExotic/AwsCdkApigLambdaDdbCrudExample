@@ -2,6 +2,9 @@ import { Context, APIGatewayProxyResult, APIGatewayEvent } from "aws-lambda";
 import * as AWS from "aws-sdk";
 import { v4 as uuidv4 } from "uuid";
 
+import PutItemInput = AWS.DynamoDB.DocumentClient.PutItemInput;
+import PutItemOutput = AWS.DynamoDB.DocumentClient.PutItemOutput;
+
 // define constants
 const TABLE_NAME = process.env.TABLE_NAME ?? "";
 const ddbDocumentClient = new AWS.DynamoDB.DocumentClient();
@@ -44,14 +47,14 @@ export const handler = async (
   createEntryInput.MessageId = createEntryInput.MessageId ?? uuidv4();
 
   // prepare entry for insert
-  const params = {
+  const params: PutItemInput = {
     TableName: TABLE_NAME,
     Item: createEntryInput,
   };
 
   try {
     // put item into the table.
-    const result = await ddbDocumentClient.put(params).promise();
+    const result: PutItemOutput = await ddbDocumentClient.put(params).promise();
     console.log("Item put result: ", result);
     return {
       statusCode: 200,
