@@ -1,6 +1,8 @@
 import { Context, APIGatewayProxyResult, APIGatewayEvent } from "aws-lambda";
 import * as AWS from "aws-sdk";
 
+import { shouldProcessEvent } from "./utils";
+
 // define constants
 const TABLE_NAME = process.env.TABLE_NAME ?? "";
 const PARTITION_KEY = process.env.PARTITION_KEY ?? "";
@@ -16,7 +18,12 @@ export const handler = async (
   // log
   console.log(`Event: ${JSON.stringify(event, null, 2)}`);
   console.log(`Context: ${JSON.stringify(context, null, 2)}`);
-
+  if (!shouldProcessEvent(event)) {
+    return {
+      statusCode: 400,
+      body: "Not so fast!",
+    };
+  }
   // some primary validation
   if (!event.pathParameters || !event.pathParameters.id) {
     return {
