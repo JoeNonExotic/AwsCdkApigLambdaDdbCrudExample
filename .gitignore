@@ -1,0 +1,16 @@
+*.js
+!jest.config.js
+*.d.ts
+node_modules
+lib/lambda/assets/node_modules
+
+# CDK asset staging directory
+.cdk.staging
+cdk.out
+
+# Do not ignore lambda files
+!lambda/*.js
+
+# intellij
+*.iml
+.idea
