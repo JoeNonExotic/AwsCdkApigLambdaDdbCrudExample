@@ -104,5 +104,6 @@ curl --location --request DELETE 'https://YOUR_API_ID.execute-api.your-aws-regio
 ---
 
 ### To-Do (PRs welcome!!!)
+- [ ] More updated to readme with dir structure and explanations.
 - [ ] Write unit tests for CDK and lambdas.
 - [ ] Setup CD Pipeline with `CodeCommit` and `CodePipeline`
