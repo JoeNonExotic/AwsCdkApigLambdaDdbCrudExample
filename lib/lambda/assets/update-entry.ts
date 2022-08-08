@@ -1,6 +1,8 @@
 import { APIGatewayEvent, APIGatewayProxyResult, Context } from "aws-lambda";
 import * as AWS from "aws-sdk";
 
+import { shouldProcessEvent } from "./utils";
+
 import UpdateItemInput = AWS.DynamoDB.DocumentClient.UpdateItemInput;
 import UpdateItemOutput = AWS.DynamoDB.DocumentClient.UpdateItemOutput;
 
@@ -24,7 +26,12 @@ export const handler = async (
   // log
   console.log(`Event: ${JSON.stringify(event, null, 2)}`);
   console.log(`Context: ${JSON.stringify(context, null, 2)}`);
-
+  if (!shouldProcessEvent(event)) {
+    return {
+      statusCode: 400,
+      body: "Not so fast!",
+    };
+  }
   // some primary validation
   if (!event.body) {
     return {
