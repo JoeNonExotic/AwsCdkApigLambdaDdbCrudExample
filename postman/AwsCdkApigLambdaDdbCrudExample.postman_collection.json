@@ -1,0 +1,141 @@
+{
+	"info": {
+		"_postman_id": "xyz",
+		"name": "Test",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "123"
+	},
+	"item": [
+		{
+			"name": "GET Message",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://YOUR_API_ID.execute-api.your-aws-region.amazonaws.com/prod/messages/93d7728b-c659-45cc-9b72-c9521701b212?validationKey=POOR_MANS_API_KEY",
+					"protocol": "https",
+					"host": [
+						"YOUR_API_ID",
+						"execute-api",
+						"your-aws-region",
+						"amazonaws",
+						"com"
+					],
+					"path": [
+						"prod",
+						"messages",
+						"93d7728b-c659-45cc-9b72-c9521701b212"
+					],
+					"query": [
+						{
+							"key": "validationKey",
+							"value": "POOR_MANS_API_KEY"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST Message",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"Message\": \"Hello from the other side - Adele\"\n}"
+				},
+				"url": {
+					"raw": "https://YOUR_API_ID.execute-api.your-aws-region.amazonaws.com/prod/messages?validationKey=POOR_MANS_API_KEY",
+					"protocol": "https",
+					"host": [
+						"YOUR_API_ID",
+						"execute-api",
+						"your-aws-region",
+						"amazonaws",
+						"com"
+					],
+					"path": [
+						"prod",
+						"messages"
+					],
+					"query": [
+						{
+							"key": "validationKey",
+							"value": "POOR_MANS_API_KEY"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE Message",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "https://YOUR_API_ID.execute-api.your-aws-region.amazonaws.com/prod/messages/106c37d5-41e3-43d8-8713-d5fb7c346989?validationKey=POOR_MANS_API_KEY",
+					"protocol": "https",
+					"host": [
+						"YOUR_API_ID",
+						"execute-api",
+						"your-aws-region",
+						"amazonaws",
+						"com"
+					],
+					"path": [
+						"prod",
+						"messages",
+						"106c37d5-41e3-43d8-8713-d5fb7c346989"
+					],
+					"query": [
+						{
+							"key": "validationKey",
+							"value": "POOR_MANS_API_KEY"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PUT Message",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"MessageId\": \"27d2fe03-2d24-48fa-a80c-434af7deba2c\",\n    \"Message\": \"Update from post master\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://YOUR_API_ID.execute-api.your-aws-region.amazonaws.com/prod/messages?validationKey=POOR_MANS_API_KEY",
+					"protocol": "https",
+					"host": [
+						"YOUR_API_ID",
+						"execute-api",
+						"your-aws-region",
+						"amazonaws",
+						"com"
+					],
+					"path": [
+						"prod",
+						"messages"
+					],
+					"query": [
+						{
+							"key": "validationKey",
+							"value": "POOR_MANS_API_KEY"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
