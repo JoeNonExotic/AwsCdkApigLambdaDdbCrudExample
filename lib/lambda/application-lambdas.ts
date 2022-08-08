@@ -113,6 +113,7 @@ export class ApplicationLambdas extends Construct {
       environment: {
         PARTITION_KEY: "MessageId",
         TABLE_NAME: props.messageEntryTable.tableName,
+        POOR_MANS_API_KEY: process.env.POOR_MANS_API_KEY,
       },
       runtime: Runtime.NODEJS_14_X,
     } as NodejsFunctionProps;
