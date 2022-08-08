@@ -31,6 +31,7 @@ diligence in **understanding the costs involved for setting up this infrastructu
 That said lets get going....
 
 #### Pre-Requisites
+* You have your favorite IDE installed for exploring code. (**cough** [IntelliJ](https://www.jetbrains.com/idea/) or [VSCode](https://code.visualstudio.com))
 * You have node and npm installed. I highly encourage using [nvm](https://github.com/nvm-sh/nvm) for easy management of node versions. 
 * You have installed and configured `aws-cdk`. If not you can find the configuration instructions [here](https://docs.aws.amazon.com/cdk/v2/guide/getting_started.html).
   * Important: This application refers to env vars from cdk `CDK_DEFAULT_ACCOUNT` and `CDK_DEFAULT_REGION`. More information on this can be found [here](https://docs.aws.amazon.com/cdk/v2/guide/environments.html).
@@ -43,6 +44,8 @@ Alternatively you can also configure your shell with an export such as `export P
 If this is configured incorrectly your APIs will return a HTTP Status 400.
 
 #### Steps
+Navigate to the workspace you cloned this project to and do the following: 
+
 * `cdk bootstrap aws://<ACCOUNT NUMBER>/CDK_DEFAULT_REGION/YOUR_CONFIGURED_REGION>`
 * `cdk synth`
 * `cdk deploy`
