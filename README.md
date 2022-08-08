@@ -43,7 +43,7 @@ Alternatively you can also configure your shell with an export such as `export P
 If this is configured incorrectly your APIs will return a HTTP Status 400.
 
 #### Steps
-* `cdk bootstrap aws://<ACCOUNT NUMBER>/<CDK_DEFAULT_REGION/YOUR_CONFIGURED_REGION>`
+* `cdk bootstrap aws://<ACCOUNT NUMBER>/CDK_DEFAULT_REGION/YOUR_CONFIGURED_REGION>`
 * `cdk synth`
 * `cdk deploy`
 
@@ -105,5 +105,6 @@ curl --location --request DELETE 'https://YOUR_API_ID.execute-api.your-aws-regio
 
 ### To-Do (PRs welcome!!!)
 - [ ] More updated to readme with dir structure and explanations.
+- [ ] Build instructions for interested readers.
 - [ ] Write unit tests for CDK and lambdas.
 - [ ] Setup CD Pipeline with `CodeCommit` and `CodePipeline`
