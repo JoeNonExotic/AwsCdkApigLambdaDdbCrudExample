@@ -17,7 +17,7 @@ export interface ApplicationApigProps {
 }
 
 /**
- * Custom construct to setup API Gateway.
+ * Custom construct to set up API Gateway.
  */
 export class ApplicationApig extends Construct {
   public constructor(

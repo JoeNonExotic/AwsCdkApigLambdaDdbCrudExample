@@ -26,13 +26,13 @@ export const handler = async (
     };
   }
   // some primary validation
-  if (!event.pathParameters || !event.pathParameters.id) {
+  if (!event.pathParameters || !event.pathParameters.messageId) {
     return {
       statusCode: 400,
-      body: `Error: You are missing the path parameter id`,
+      body: `Error: You are missing the path parameter messageId`,
     };
   }
-  const requestedItemId = event.pathParameters.id;
+  const requestedItemId = event.pathParameters.messageId;
 
   const params: DeleteItemInput = {
     TableName: TABLE_NAME,

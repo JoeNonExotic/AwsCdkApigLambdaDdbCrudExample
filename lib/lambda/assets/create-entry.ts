@@ -65,7 +65,7 @@ export const handler = async (
     console.log("Item put result: ", result);
     return {
       statusCode: 200,
-      body: "Successfully added entry to the table",
+      body: `Successfully added entry to the table with id ${createEntryInput.MessageId}`,
     } as APIGatewayProxyResult;
   } catch (err) {
     return { statusCode: 500, body: err.message } as APIGatewayProxyResult;
