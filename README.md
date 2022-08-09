@@ -10,7 +10,7 @@
 
 ### What are we deploying ?
 
-![](diagrams/architecture.drawio.png)
+![](diagrams/architecture.png)
 
 * A simple backend, where we set up an API (non-Auth) that helps you interact with a message store based on DynamoDb as seen below through [REST](https://en.wikipedia.org/wiki/Representational_state_transfer).
 
