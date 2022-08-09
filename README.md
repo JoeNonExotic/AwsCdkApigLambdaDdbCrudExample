@@ -1,7 +1,7 @@
 ## AwsCdkApiLambdaDdbCrudExample
 
 ### What is this application about ?
-* A very simple application in [typescript](https://www.typescriptlang.org) that demonstrates a backend using the following components from [AWS](https://aws.amazon.com)
+* A very simple application in [typescript](https://www.typescriptlang.org) and [golang](https://go.dev) that demonstrates a backend using the following components from [AWS](https://aws.amazon.com)
   * [API Gateway](https://aws.amazon.com/api-gateway/)
   * [Lambda](https://aws.amazon.com/lambda/)
   * [DynamoDb](https://aws.amazon.com/dynamodb/)
@@ -104,10 +104,15 @@ curl --location --request PUT 'https://YOUR_API_ID.execute-api.your-aws-region.a
 curl --location --request DELETE 'https://YOUR_API_ID.execute-api.your-aws-region.amazonaws.com/prod/messages/{MessageId}?validationKey=POOR_MANS_API_KEY'
 ```
 
+#### GET (HealthCheck)
+```shell
+curl --location --request GET 'https://YOUR_API_ID.execute-api.your-aws-region.amazonaws.com/prod/ping'
+```
+
 ---
 
 ### To-Do (PRs welcome!!!)
 - [ ] More updated to readme with dir structure and explanations.
 - [ ] Build instructions for interested readers.
-- [ ] Write unit tests for CDK and lambdas.
+- [ ] Write unit tests for CDK and lambdas (typescript and golang)
 - [ ] Setup CD Pipeline with `CodeCommit` and `CodePipeline`

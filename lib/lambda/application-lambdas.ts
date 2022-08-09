@@ -1,6 +1,7 @@
 import { Table } from "aws-cdk-lib/aws-dynamodb";
 import { ManagedPolicy } from "aws-cdk-lib/aws-iam";
 import { Runtime } from "aws-cdk-lib/aws-lambda";
+import * as lambda from "aws-cdk-lib/aws-lambda";
 import {
   NodejsFunction,
   NodejsFunctionProps,
@@ -39,6 +40,11 @@ export class ApplicationLambdas extends Construct {
    */
   public readonly deleteEntryLambda: NodejsFunction;
 
+  /**
+   * Lambda function in golang to do healthcheck.
+   */
+  public readonly healthCheckLambda: lambda.Function;
+
   public constructor(
     scope: Construct,
     id: string,
@@ -67,6 +73,11 @@ export class ApplicationLambdas extends Construct {
       "delete-entry.ts",
       props
     );
+
+    this.healthCheckLambda = this.setupApplicationGoLambda(
+      "HealthCheckLambda",
+      "main"
+    );
   }
 
   /**
@@ -92,6 +103,43 @@ export class ApplicationLambdas extends Construct {
     );
     // give lambda permissions to read/write from the message store ddb.
     props.messageEntryTable.grantReadWriteData(lambdaFunc);
+    return lambdaFunc;
+  }
+
+  /**
+   * Sets up application lambda built using golang based on the provided params with default certain default settings.
+   * @param functionId the logical function id
+   */
+  private setupApplicationGoLambda(
+    functionId: string,
+    handler: string
+  ): lambda.Function {
+    const environment = {
+      CGO_ENABLED: "0",
+      GOOS: "linux",
+      GOARCH: "amd64",
+    };
+    const lambdaFunc: lambda.Function = new lambda.Function(this, functionId, {
+      code: lambda.Code.fromAsset(join(__dirname, "assets-go"), {
+        bundling: {
+          image: lambda.Runtime.GO_1_X.bundlingImage,
+          user: "root",
+          environment,
+          command: [
+            "bash",
+            "-c",
+            ["make vendor", "make lambda-build"].join(" && "),
+          ],
+        },
+      }),
+      handler,
+      runtime: lambda.Runtime.GO_1_X,
+    });
+    lambdaFunc.role?.addManagedPolicy(
+      ManagedPolicy.fromAwsManagedPolicyName(
+        "service-role/AWSLambdaBasicExecutionRole"
+      )
+    );
     return lambdaFunc;
   }
 
