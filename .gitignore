@@ -14,3 +14,4 @@ cdk.out
 # intellij
 *.iml
 .idea
+lib/lambda/assets-go/.idea

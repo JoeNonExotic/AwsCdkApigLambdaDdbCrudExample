@@ -40,6 +40,9 @@ export class ApplicationApig extends Construct {
     const deleteEntryIntegration: LambdaIntegration = new LambdaIntegration(
       props.applicationLambdas.deleteEntryLambda
     );
+    const healthCheckIntegration: LambdaIntegration = new LambdaIntegration(
+      props.applicationLambdas.healthCheckLambda
+    );
 
     // Create an API Gateway resource for each of the CRUD operations
     const api = new RestApi(this, "ApplicationApi", {
@@ -58,6 +61,10 @@ export class ApplicationApig extends Construct {
     genericMessageResource.addMethod("GET", readEntryIntegration);
     genericMessageResource.addMethod("DELETE", deleteEntryIntegration);
     this.addCorsOptions(genericMessageResource);
+
+    //setup healthcheck
+    const healthcheckResource = api.root.addResource("ping");
+    healthcheckResource.addMethod("GET", healthCheckIntegration);
   }
 
   /**

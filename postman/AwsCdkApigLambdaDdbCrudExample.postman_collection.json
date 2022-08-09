@@ -136,6 +136,29 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "GET HealthCheck",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://YOUR_API_ID.execute-api.your-aws-region.amazonaws.com/prod/ping",
+					"protocol": "https",
+					"host": [
+						"YOUR_API_ID",
+						"execute-api",
+						"your-aws-region",
+						"amazonaws",
+						"com"
+					],
+					"path": [
+						"prod",
+						"ping"
+					]
+				}
+			},
+			"response": []
 		}
 	]
 }
