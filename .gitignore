@@ -15,4 +15,3 @@ cdk.out
 *.iml
 .idea
 lib/lambda/assets-go/.idea
-lib/lambda/assets-go/assets-go
